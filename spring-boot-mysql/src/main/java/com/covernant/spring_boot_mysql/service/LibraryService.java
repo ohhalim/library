@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,7 @@ public class LibraryService {
         throw new EntityNotFoundException(
                 "Cannot find book with id: " + id); // 없으면 예외처리
     }
-
-    
+    public List<Book> readBooks() {
+        return bookRepository.findAll(); // repo에 있는 Book의 모든 엔티티 조회해서 모든 책 반환
+    }
 }
