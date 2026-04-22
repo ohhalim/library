@@ -1,5 +1,6 @@
 package com.covernant.spring_boot_mysql.service;
 
+import com.covernant.spring_boot_mysql.model.Author;
 import com.covernant.spring_boot_mysql.model.Book;
 import com.covernant.spring_boot_mysql.repository.AuthorRepository;
 import com.covernant.spring_boot_mysql.repository.BookRepository;
@@ -31,4 +32,13 @@ public class LibraryService {
     public List<Book> readBooks() {
         return bookRepository.findAll(); // repo에 있는 Book의 모든 엔티티 조회해서 모든 책 반환
     }
+    public Book readBook(String isbn) {
+        Optional<Book> book = bookRepository.findByIsbn(isbn); // Optional의 목적은 null 체크를 하려고 하는거      
+        if (book.isPresent()) {
+            return book.get();
+        }
+        throw new EntityNotFoundException(
+                "Can't find any under given isbn: " + isbn);
+    }
+    
 }
