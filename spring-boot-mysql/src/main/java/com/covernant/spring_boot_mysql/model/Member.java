@@ -24,6 +24,7 @@ public class Member {
     private MemberStatus status;
 
     @JsonBackReference
-    @OneToMany(MappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member",
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Lend> lends;
 }
