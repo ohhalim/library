@@ -79,6 +79,14 @@ public class LibraryService {
         // 조회된 책 삭제
         bookRepository.delete(book);
     }
+
+    public Member createMember(MemberCreationRequest request) {
+        Member member = new Member();
+        BeanUtils.copyProperties(request, member);
+        member.setStatus(MemberStatus.ACTIVE);
+        return memberRepository.save(member);
+    }
+
     public Member updateMember(Long id, MemberCreationRequest request) {
         // 전달받은 id로 기존 회원을 조회 한다
         // 회원이 없으면 entitynotfoundexception을 발생시킨다
@@ -99,7 +107,7 @@ public class LibraryService {
         return authorRepository.save(author);
     }
 
-    public List<String> lendBook(BookLendRequest request) {
+    public List<String> lendABook(BookLendRequest request) {
         List<String> booksApprovedToBorrow = new ArrayList<>();
 
         Member member = memberRepository.findById(request.getMemberId())
